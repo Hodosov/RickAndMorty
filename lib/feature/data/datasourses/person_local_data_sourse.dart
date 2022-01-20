@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:rick_and_morty/core/error/exception.dart';
 import 'package:rick_and_morty/feature/data/models/person_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,8 +16,14 @@ class PersonLocalDataSourseImpl implements PersonLocalDataSoutse {
   PersonLocalDataSourseImpl({required this.sharedPreferences});
   @override
   Future<List<PersonModel>> getLastPersonsFromCache() {
-    // TODO: implement getLastPersonsFromCache
-    throw UnimplementedError();
+    final jsonPersonsList = sharedPreferences.getStringList(CACHE_PERSONS_LIST);
+    if (jsonPersonsList!.isNotEmpty) {
+      return Future.value(jsonPersonsList
+          .map((person) => PersonModel.fromJson(json.decode(person)))
+          .toList());
+    } else {
+      throw Cachexception();
+    }
   }
 
   @override
