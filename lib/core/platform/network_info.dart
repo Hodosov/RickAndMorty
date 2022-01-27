@@ -6,6 +6,8 @@ abstract class NetworkInfo {
 
 class NetworkInfoImple implements NetworkInfo {
   late final InternetConnectionChecker connectionChecker;
+
+  NetworkInfoImple(this.connectionChecker);
   @override
   Future<bool> get isConnected => connectionChecker.hasConnection;
 }

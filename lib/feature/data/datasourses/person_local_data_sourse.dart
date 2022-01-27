@@ -4,14 +4,14 @@ import 'package:rick_and_morty/core/error/exception.dart';
 import 'package:rick_and_morty/feature/data/models/person_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-abstract class PersonLocalDataSoutse {
+abstract class PersonLocalDataSourse {
   Future<List<PersonModel>> getLastPersonsFromCache();
   Future<void> personsToCache(List<PersonModel> persons);
 }
 
 const String CACHE_PERSONS_LIST = 'CACHE_PERSONS_LIST';
 
-class PersonLocalDataSourseImpl implements PersonLocalDataSoutse {
+class PersonLocalDataSourseImpl implements PersonLocalDataSourse {
   final SharedPreferences sharedPreferences;
   PersonLocalDataSourseImpl({required this.sharedPreferences});
   @override

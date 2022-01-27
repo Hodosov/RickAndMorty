@@ -10,7 +10,7 @@ import 'package:rick_and_morty/feature/domain/repositories/person_repository.dar
 
 class PersonRepositoryImple implements PersonRepository {
   final PersonRemoteDataSourse remoteDataSourse;
-  final PersonLocalDataSoutse localDataSourse;
+  final PersonLocalDataSourse localDataSourse;
   final NetworkInfo networkInfo;
 
   PersonRepositoryImple(
