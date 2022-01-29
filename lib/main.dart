@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
             create: (context) => sl<PersonSearchBlock>()),
       ],
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: ThemeData.dark().copyWith(
             backgroundColor: AppColors.mainBackground,
             scaffoldBackgroundColor: AppColors.mainBackground),
