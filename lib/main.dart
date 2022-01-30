@@ -21,8 +21,8 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<PersonListCubit>(
             create: (context) => sl<PersonListCubit>()..loadPerson()),
-        BlocProvider<PersonSearchBlock>(
-            create: (context) => sl<PersonSearchBlock>()),
+        BlocProvider<PersonSearchBloc>(
+            create: (context) => sl<PersonSearchBloc>()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -7,15 +7,16 @@ import 'package:rick_and_morty/feature/presentation/bloc/search_bloc/search_stat
 import 'package:rick_and_morty/feature/presentation/widgets/searhc_result.dart';
 
 class CustomSearchDelegate extends SearchDelegate {
-  CustomSearchDelegate()
-      : super(
-          searchFieldLabel: 'Search for characters...',
-        );
+  CustomSearchDelegate() : super(searchFieldLabel: 'Search for characters...');
 
-  final _suggestions = ['Rick', 'Morty', 'Summer'];
+  final _suggestions = [
+    'Rick',
+    'Morty',
+    'Summer',
+  ];
 
   @override
-  List<Widget>? buildActions(BuildContext context) {
+  List<Widget> buildActions(BuildContext context) {
     return [
       IconButton(
           onPressed: () {
@@ -27,21 +28,20 @@ class CustomSearchDelegate extends SearchDelegate {
   }
 
   @override
-  Widget? buildLeading(BuildContext context) {
+  Widget buildLeading(BuildContext context) {
     return IconButton(
+        icon: Icon(Icons.arrow_back_outlined),
         tooltip: 'Back',
-        onPressed: () {
-          close(context, null);
-        },
-        icon: Icon(Icons.arrow_back_outlined));
+        onPressed: () => close(context, null));
   }
 
   @override
   Widget buildResults(BuildContext context) {
     print('Inside search delegate: $query');
-    BlocProvider.of<PersonSearchBlock>(context, listen: false)
-        .add(SearchPersons(query));
-    return BlocBuilder<PersonSearchBlock, PersonSearchState>(
+    BlocProvider.of<PersonSearchBloc>(context, listen: false)
+      ..add(SearchPersons(query));
+
+    return BlocBuilder<PersonSearchBloc, PersonSearchState>(
       builder: (context, state) {
         if (state is PersonSearchLoading) {
           return const Center(
@@ -70,18 +70,19 @@ class CustomSearchDelegate extends SearchDelegate {
     );
   }
 
-  Widget _showErrorText(String message) {
+  Widget _showErrorText(String errorMessage) {
     return Container(
-        color: Colors.black,
-        child: Center(
-          child: Text(
-            message,
-            style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 20,
-            ),
+      color: Colors.black,
+      child: Center(
+        child: Text(
+          errorMessage,
+          style: const TextStyle(
+            fontSize: 20.0,
+            fontWeight: FontWeight.bold,
           ),
-        ));
+        ),
+      ),
+    );
   }
 
   @override
@@ -89,15 +90,22 @@ class CustomSearchDelegate extends SearchDelegate {
     if (query.length > 0) {
       return Container();
     }
+
     return ListView.separated(
-        padding: EdgeInsets.all(10),
-        itemBuilder: (context, index) {
-          return Text(
-            _suggestions[index],
-            style: TextStyle(fontWeight: FontWeight.w400, fontSize: 16.0),
-          );
-        },
-        separatorBuilder: (context, index) => Divider(),
-        itemCount: _suggestions.length);
+      padding: const EdgeInsets.all(10),
+      itemBuilder: (context, index) {
+        return Text(
+          _suggestions[index],
+          style: const TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w400,
+          ),
+        );
+      },
+      separatorBuilder: (context, index) {
+        return const Divider();
+      },
+      itemCount: _suggestions.length,
+    );
   }
 }
